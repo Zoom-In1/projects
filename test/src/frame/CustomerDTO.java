@@ -40,7 +40,7 @@ public class CustomerDTO {
 		return num;
 	}
 
-	public void setOrder(int num) {
+	public void setNum(int num) {
 		this.num = num;
 	}
 

@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -19,11 +20,18 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import hair.PetHairFrame;
+import hair.HairDAO;
+import hair.HairDTO;
+import hair.HairMainFrame;
+//import hair.PetHairFrame;
 import hotel.PetHotelFrame;
+import manager.Frame;
+import manager.Frame2;
+
 
 public class PetradiceMainFrame extends JFrame implements ActionListener {
 	CustomerDAO dao = new CustomerDAO();
+	HairDAO hairdao = new HairDAO();
 	Function f = new functionImpl();
 	// 컴포넌트 부분
 	Container container = getContentPane();
@@ -284,11 +292,12 @@ public class PetradiceMainFrame extends JFrame implements ActionListener {
 				if (selectService.getSelectedItem().equals("호텔")) {
 					CustomerDTO dto = new CustomerDTO(name, petName, kind, gender,service);
 					new PetHotelFrame(dto);
+					
 				
 				} else if (selectService.getSelectedItem().equals("미용")) {
 					
 					CustomerDTO dto = new CustomerDTO(name, petName, kind, gender,service);
-					new PetHairFrame(dto);
+					new HairMainFrame(dto);
 				}
 			}
 			tName.setText("");
@@ -296,14 +305,16 @@ public class PetradiceMainFrame extends JFrame implements ActionListener {
 			selectKind.setSelectedIndex(0);
 			selectGender.setSelectedIndex(0);
 			selectService.setSelectedIndex(0);
+			
 
 		} else if (e.getSource() == checkService) {
-			// 조회 버튼 => 새로운 프레임 나오기 => 예약번호,가격,예약시간대 확인하는 곳
-			String name = tName.getText();
-			CustomerDTO dto = dao.selectCustomer(name);
-			System.out.println(dto.toString());
+			HairDTO hairdto = new HairDTO();
+			
+			new Frame2(hairdto);
+			
 		} else if (e.getSource() == login) {
 // 관리자 프레임 나오기
+			new Frame();
 		} else if (e.getSource() == serchID_PW) {
 // 아이디 비밀번호 찾는 프레임 나오기
 		} else if (e.getSource() == joinMemberShip) {

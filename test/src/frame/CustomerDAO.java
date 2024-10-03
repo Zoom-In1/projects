@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerDAO {
 	public CustomerDAO() {
@@ -74,7 +76,7 @@ public class CustomerDAO {
 			rs  = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				dto.setOrder(rs.getInt("num"));
+				dto.setNum(rs.getInt("num"));
 				dto.setName(rs.getString("name"));
 				dto.setPetName(rs.getString("petname"));
 				dto.setKind(rs.getInt("kind"));
@@ -100,5 +102,82 @@ public class CustomerDAO {
 		return dto;
 	}
 	
+	// selectAll
+	public List<CustomerDTO> selectAll(){
+		List<CustomerDTO> list = new ArrayList<CustomerDTO>();
+		Connection conn = getConnection();
+		String sql = "select * from petradice order by num asc";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CustomerDTO dto = new CustomerDTO();
+				dto.setNum(rs.getInt("num"));
+				dto.setName(rs.getString("name"));
+				dto.setPetName(rs.getString("petname"));
+				dto.setKind(rs.getInt("kind"));
+				dto.setPetGender(rs.getInt("petgender"));
+				dto.setService(rs.getString("service"));
+				
+				list.add(dto);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)pstmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return list;
+	}
+	
+	// selectName
+	public List<CustomerDTO> selectName(String name){
+		List<CustomerDTO> list = new ArrayList<CustomerDTO>();
+		Connection conn = getConnection();
+		String sql = "select * from petradice where name = ? order by num asc";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CustomerDTO dto = new CustomerDTO();
+				dto.setNum(rs.getInt("num"));
+				dto.setName(rs.getString("name"));
+				dto.setPetName(rs.getString("petname"));
+				dto.setKind(rs.getInt("kind"));
+				dto.setPetGender(rs.getInt("petgender"));
+				dto.setService(rs.getString("service"));
+				
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return list;
+	}
+	
+	// selectNum
 
+	
 }
