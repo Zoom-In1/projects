@@ -31,7 +31,7 @@ public class User implements UserDetails {
 	private String id; // 사용자의 ID(기본 키로 사용)
 	private String pwd;
 	@Temporal(TemporalType.DATE)
-	private Data age; // 사용자의 생년월일
+	private Date age; // 사용자의 생년월일
 	private String gender;
 	private String email;
 	private String tel;
