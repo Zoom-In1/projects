@@ -3,6 +3,7 @@ package com.example.CoffeeShop.controller;
 // import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+// 로그인, 회원가입, 마이페이지 API
 // @CrossOrigin(origins = "http://localhost:3000") // React 앱의 주소
 @RestController
 public class UserController {
